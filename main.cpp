@@ -10,19 +10,19 @@ struct remove_lowest_const
 
 template<typename T>
 struct remove_lowest_const<T, typename std::enable_if<std::is_pointer<T>::value &&
-                                                     std::is_const<  T>::value>::type>
+                                                      std::is_const<  T>::value    >::type>
 {
   using type = typename std::add_const<
                typename std::add_pointer<
-               typename remove_lowest_const<    typename std::remove_pointer<T>::type   >::type>::type>::type;
+               typename remove_lowest_const<    typename std::remove_pointer<T>::type   >::type  >::type  >::type;
 };
 
 template<typename T>
 struct remove_lowest_const<T, typename std::enable_if<std::is_pointer<T>::value &&
-                                                   ! std::is_const<  T>::value>::type>
+                                                    ! std::is_const<  T>::value    >::type>
 {
   using type = typename std::add_pointer<
-               typename remove_lowest_const<   typename std::remove_pointer<T>::type   >::type>::type;
+               typename remove_lowest_const<   typename std::remove_pointer<T>::type   >::type  >::type;
 };
 
 int main()
